@@ -1,0 +1,114 @@
+[gd_scene load_steps=13 format=3 uid="uid://b1ev0l64op5dx"]
+
+[ext_resource type="Texture2D" uid="uid://d3ekh6odbv2ui" path="res://图片/background.png" id="1_abbb7"]
+[ext_resource type="Script" uid="uid://c3n1lj7u041mo" path="res://脚本/主场景.gd" id="1_qgdmo"]
+[ext_resource type="Texture2D" uid="uid://dcm61gxcetake" path="res://图片/groundGrass.png" id="2_qgdmo"]
+[ext_resource type="PackedScene" uid="uid://djesok7l407pp" path="res://场景/小飞机.tscn" id="3_3fatf"]
+[ext_resource type="PackedScene" uid="uid://fykv4yk50hjg" path="res://场景/ui.tscn" id="6_brvep"]
+[ext_resource type="Texture2D" uid="uid://cqvvu8txw6dew" path="res://图片/UI/tapLeft.png" id="6_t7rjn"]
+[ext_resource type="Texture2D" uid="uid://dgkuaoveg83ir" path="res://图片/UI/tapRight.png" id="7_0faug"]
+[ext_resource type="Texture2D" uid="uid://cmogs1j3oyxru" path="res://图片/UI/tap.png" id="8_lvo07"]
+[ext_resource type="Texture2D" uid="uid://dw0x2kcxs8hcb" path="res://图片/UI/tapTick.png" id="9_x7wtn"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_3fatf"]
+a = Vector2(416, 0.50145)
+b = Vector2(-416, -4.50066)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_t7rjn"]
+a = Vector2(-561, -232)
+b = Vector2(-557, 238)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a87lm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_lvo07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_x7wtn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="主场景" type="Node2D"]
+script = ExtResource("1_qgdmo")
+
+[node name="背景" type="Parallax2D" parent="."]
+repeat_size = Vector2(800, 0)
+autoscroll = Vector2(-80, 0)
+repeat_times = 3
+
+[node name="背景图" type="Sprite2D" parent="背景"]
+texture = ExtResource("1_abbb7")
+
+[node name="小飞机" parent="." instance=ExtResource("3_3fatf")]
+position = Vector2(-148, 0)
+
+[node name="前景碰撞2" type="Area2D" parent="." groups=["墙体"]]
+position = Vector2(-120, -205.499)
+rotation = 3.14159
+input_pickable = false
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="前景碰撞2" groups=["墙体"]]
+position = Vector2(-119, 19.0003)
+shape = SubResource("SegmentShape2D_3fatf")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="前景碰撞2" groups=["墙体"]]
+position = Vector2(-115.999, -433.499)
+rotation = -3.14159
+shape = SubResource("SegmentShape2D_3fatf")
+
+[node name="前景" type="Parallax2D" parent="."]
+scroll_offset = Vector2(34, 209)
+repeat_size = Vector2(800, 0)
+autoscroll = Vector2(-200, 0)
+repeat_times = 3
+
+[node name="前景图" type="Sprite2D" parent="前景"]
+texture = ExtResource("2_qgdmo")
+
+[node name="前景图2" type="Sprite2D" parent="前景"]
+position = Vector2(-120, -414.499)
+rotation = 3.14159
+texture = ExtResource("2_qgdmo")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.375, 1.345)
+
+[node name="UI" parent="Camera2D" instance=ExtResource("6_brvep")]
+
+[node name="尖刺生成位置" type="Marker2D" parent="."]
+position = Vector2(453, -241)
+metadata/_edit_lock_ = true
+
+[node name="飞机初始位置" type="Marker2D" parent="."]
+position = Vector2(-144, 1)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="消失碰撞" type="Area2D" parent="." groups=["消失"]]
+position = Vector2(-168, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="消失碰撞" groups=["消失"]]
+shape = SubResource("SegmentShape2D_t7rjn")
+
+[node name="操作提示" type="Node2D" parent="."]
+
+[node name="提示左" type="Sprite2D" parent="操作提示"]
+position = Vector2(-58, 3)
+texture = ExtResource("6_t7rjn")
+
+[node name="提示右" type="Sprite2D" parent="操作提示"]
+position = Vector2(-235, 3)
+texture = ExtResource("7_0faug")
+
+[node name="手指提示" type="AnimatedSprite2D" parent="操作提示"]
+position = Vector2(-142, 68)
+sprite_frames = SubResource("SpriteFrames_a87lm")
+autoplay = "default"
+frame_progress = 0.592689
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

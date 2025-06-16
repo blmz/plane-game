@@ -1,0 +1,92 @@
+[gd_scene load_steps=15 format=3 uid="uid://djesok7l407pp"]
+
+[ext_resource type="Texture2D" uid="uid://bxajwfmalhihu" path="res://图片/Planes/planeRed1.png" id="1_75lfn"]
+[ext_resource type="Texture2D" uid="uid://xsb5u36igwt6" path="res://图片/Planes/planeBlue1.png" id="1_pwnn3"]
+[ext_resource type="Texture2D" uid="uid://c7f8bt6hxqsk8" path="res://图片/Planes/planeBlue2.png" id="2_7h20r"]
+[ext_resource type="Texture2D" uid="uid://dynjh1qkseavx" path="res://图片/Planes/planeRed2.png" id="2_8mnrh"]
+[ext_resource type="Texture2D" uid="uid://e7vnbjlprqjd" path="res://图片/Planes/planeBlue3.png" id="3_418yj"]
+[ext_resource type="Texture2D" uid="uid://clbbp5oqd1b8j" path="res://图片/Planes/planeRed3.png" id="3_a8073"]
+[ext_resource type="Texture2D" uid="uid://dc6l6jc0v3i2r" path="res://图片/Planes/planeGreen1.png" id="4_i0iav"]
+[ext_resource type="Texture2D" uid="uid://du3bj5txw2g1" path="res://图片/Planes/planeGreen2.png" id="5_7m267"]
+[ext_resource type="Texture2D" uid="uid://bk5othcpkjrto" path="res://图片/Planes/planeGreen3.png" id="6_0s2o4"]
+[ext_resource type="Texture2D" uid="uid://b6fsc45pd03ib" path="res://图片/Planes/planeYellow1.png" id="10_ounvh"]
+[ext_resource type="Texture2D" uid="uid://b8ukijib66abv" path="res://图片/Planes/planeYellow2.png" id="11_wutlt"]
+[ext_resource type="Texture2D" uid="uid://ddyls3kfnrnu5" path="res://图片/Planes/planeYellow3.png" id="12_h6hb7"]
+[ext_resource type="Script" uid="uid://mhecb3i3b2w2" path="res://脚本/小飞机.gd" id="13_8mnrh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4o7nd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_75lfn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_8mnrh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a8073")
+}],
+"loop": true,
+"name": &"红色",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_i0iav")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7m267")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0s2o4")
+}],
+"loop": true,
+"name": &"绿色",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pwnn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_7h20r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_418yj")
+}],
+"loop": true,
+"name": &"蓝色",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_ounvh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_wutlt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_h6hb7")
+}],
+"loop": true,
+"name": &"黄色",
+"speed": 10.0
+}]
+
+[node name="小飞机" type="AnimatedSprite2D"]
+scale = Vector2(0.769, 0.769)
+sprite_frames = SubResource("SpriteFrames_4o7nd")
+animation = &"黄色"
+script = ExtResource("13_8mnrh")
+
+[node name="碰撞检测" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="碰撞检测"]
+build_mode = 1
+polygon = PackedVector2Array(12, 35, -19, 27, -26, 21, -43, -17, -40, -25, -26, -25, -21, -34, 26, -35, 29, -29, 33.8101, -18.2055, 42, -14, 44, 26, 22, 35)
+
+[node name="尾气位置" type="Marker2D" parent="."]
+position = Vector2(-44.2133, 0)
+
+[connection signal="area_entered" from="碰撞检测" to="." method="_on_碰撞检测_area_entered"]

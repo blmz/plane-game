@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://8716faqtkee8"]
+
+[ext_resource type="FontFile" uid="uid://roslrrwcfeqi" path="res://字体/kenvector_future_thin.ttf" id="1_1gb8p"]
+
+[resource]
+font = ExtResource("1_1gb8p")
+font_size = 46
+font_color = Color(0.941406, 0.755699, 0.198578, 1)
+outline_size = 5
+outline_color = Color(0.347656, 0.286193, 0.100494, 1)

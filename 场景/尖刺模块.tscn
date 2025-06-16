@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfcaeaw6yw6u4"]
+
+[ext_resource type="Texture2D" uid="uid://cv4547uvm8fje" path="res://图片/rock.png" id="1_oinq7"]
+[ext_resource type="Texture2D" uid="uid://clwni26hhjuim" path="res://图片/rockDown.png" id="1_tdhp4"]
+[ext_resource type="Script" uid="uid://cto1ck8f8hf3t" path="res://脚本/尖刺模块.gd" id="1_u54a6"]
+[ext_resource type="Texture2D" uid="uid://bvrqashe6ax1i" path="res://图片/starBronze.png" id="4_jrr8e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jrr8e"]
+radius = 20.2667
+
+[node name="尖刺模块" type="Node2D"]
+script = ExtResource("1_u54a6")
+
+[node name="上尖刺1" type="Sprite2D" parent="."]
+position = Vector2(53, 649)
+texture = ExtResource("1_oinq7")
+offset = Vector2(1, -118.5)
+
+[node name="碰撞体" type="Area2D" parent="上尖刺1" groups=["墙体"]]
+position = Vector2(2, -118)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="上尖刺1/碰撞体"]
+polygon = PackedVector2Array(12, -117.9, -51, 116.5, 52, 118.1)
+
+[node name="下尖刺1" type="Sprite2D" parent="."]
+position = Vector2(54, 1)
+texture = ExtResource("1_tdhp4")
+offset = Vector2(0, 116.5)
+
+[node name="碰撞体" type="Area2D" parent="下尖刺1" groups=["墙体"]]
+position = Vector2(1, 115)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="下尖刺1/碰撞体"]
+polygon = PackedVector2Array(12, 118.9, -53, -120.3, 53, -118.7)
+
+[node name="星星位置1" type="Sprite2D" parent="."]
+position = Vector2(319, 306)
+scale = Vector2(1.18421, 1.18421)
+texture = ExtResource("4_jrr8e")
+
+[node name="Area2D" type="Area2D" parent="星星位置1" groups=["星星"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="星星位置1/Area2D"]
+position = Vector2(0, 1.68889)
+shape = SubResource("CircleShape2D_jrr8e")
+
+[connection signal="area_entered" from="上尖刺1/碰撞体" to="." method="_on_碰撞体_area_entered"]

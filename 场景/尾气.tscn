@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dadyhgefcd1jk"]
+
+[ext_resource type="Script" uid="uid://k6gj6wt6efvd" path="res://脚本/尾气.gd" id="1_3jprd"]
+[ext_resource type="Texture2D" uid="uid://diuht1wk8bqbf" path="res://图片/puffSmall.png" id="1_ntym8"]
+
+[node name="尾气" type="Sprite2D"]
+modulate = Color(0.535156, 0.535156, 0.535156, 1)
+texture = ExtResource("1_ntym8")
+script = ExtResource("1_3jprd")
